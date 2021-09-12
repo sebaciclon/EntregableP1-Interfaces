@@ -60,8 +60,6 @@ function uploadImage() {
 
 function negativeFilter() {
     
-    let grey;
-
     let image1 = new Image();
     image1.src = "images/EscudoTransparente.png";
     image1.onload = function() {
