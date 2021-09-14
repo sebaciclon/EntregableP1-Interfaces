@@ -17,6 +17,7 @@ btn_borrar.addEventListener('click', agarrarGoma);
 
 function agarrarGoma(){ //Selecciona la herramienta goma para trabajar
     agarrar_goma = true;
+    agarrar_lapiz = false;
 }
 
 canvas.addEventListener('mousedown', function(e){ //e es dónde se hizo clic en la pantalla.

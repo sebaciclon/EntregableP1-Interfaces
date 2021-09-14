@@ -10,6 +10,15 @@ let x = 0, y = 0;
 let dibujando = false;
 let color = 'black';
 let grosor = 1;
+let agarrar_lapiz = false;
+
+let btn_dibujar = document.getElementById('dibujar');
+btn_dibujar.addEventListener('click', agarrarLapiz);
+
+function agarrarLapiz(){ //Selecciona la herramienta goma para trabajar
+    agarrar_lapiz = true;
+    agarrar_goma = false;
+}
 
 function definirColor(c){
     color = c;
@@ -48,13 +57,15 @@ canvas.addEventListener('mouseup', function(e){ //e es dónde se dejó de hacer 
 });
 
 function dibujar(x1, y1,x2, y2){
-    ctx.beginPath(); //comenzamos una ruta nueva
-    ctx.strokeStyle = color; //definimos con el color que vamos a dibujar
-    ctx.lineWidth = grosor; //definimos el grosor de la linea de dibujo
-    ctx.moveTo(x1, y1); //mover o posicionar el lápiz a la posición inicial
-    ctx.lineTo(x2, y2); //dibujamos una linea hasta el valor final
-    ctx.stroke(); //dibujamos lineas y no areas cerradas
-    ctx.closePath();
+    if(agarrar_lapiz == true){
+        ctx.beginPath(); //comenzamos una ruta nueva
+        ctx.strokeStyle = color; //definimos con el color que vamos a dibujar
+        ctx.lineWidth = grosor; //definimos el grosor de la linea de dibujo
+        ctx.moveTo(x1, y1); //mover o posicionar el lápiz a la posición inicial
+        ctx.lineTo(x2, y2); //dibujamos una linea hasta el valor final
+        ctx.stroke(); //dibujamos lineas y no areas cerradas
+        ctx.closePath();
+    }
 }
 
 
