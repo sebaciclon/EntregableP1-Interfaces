@@ -3,7 +3,7 @@
 /**@type {HTMLCanvasElement} */
 
 let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext("2d");
+//let ctx = canvas.getContext("2d");
 
 let rectCanvas = canvas.getBoundingClientRect(); //posición del canvas respecto de la pantalla (borde derecho y superior)
 let x = 0, y = 0;
@@ -20,8 +20,8 @@ function definirGrosor(g){
 }
 
 canvas.addEventListener('mousedown', function(e){ //e es dónde se hizo clic en la pantalla.
-    x = e.clientX - rectCanvas.left; //valor en x donde se hizo clic sobre el canvas
-    y = e.clientY - rectCanvas.top; //valor en y donde se hizo clic sobre el canvas
+    x = e.clientX - rectCanvas.left; //valor en x donde se hizo click sobre el canvas
+    y = e.clientY - rectCanvas.top; //valor en y donde se hizo click sobre el canvas
     dibujando = true; //el mouse está presionado
 
 });
@@ -36,9 +36,9 @@ canvas.addEventListener('mousemove', function(e){
     }
 });
 
-canvas.addEventListener('mouseup', function(e){ //e es dónde se dejó de hacer clic
-    let x1 = e.clientX - rectCanvas.left; // valor en x donde se dejó de hacer clic
-    let y1 = e.clientY - rectCanvas.top; // valor en y donde se dejó de hacer clic
+canvas.addEventListener('mouseup', function(e){ //e es dónde se dejó de hacer click
+    let x1 = e.clientX - rectCanvas.left; // valor en x donde se dejó de hacer click
+    let y1 = e.clientY - rectCanvas.top; // valor en y donde se dejó de hacer click
     if(dibujando == true){
         dibujar(x, y, x1, y1); //dibujamos la última linea
         x = 0; //nuevo valor inicial en x (vuelve a la posición inicial)

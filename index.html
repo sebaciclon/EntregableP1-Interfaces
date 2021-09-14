@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/estilo.css">
-    <!-- <script src="js/filtros.js"></script> -->
+    
     
 </head>
 <body>
     <canvas id="canvas" width="600" height="600"></canvas><br>
     
     <input type="color" id="color" oninput="definirColor(this.value);">
-    <input type="range" id="grosor" oninput="definirGrosor(this.value);" min="1" max="15" value="1"><br>
+    <input type="range" id="grosor" oninput="definirGrosor(this.value);" min="1" max="15" value="1">
+    <button id="borrar">Borrar</button><br><br>
 
     <button id="upload">Cargar Imagen</button>
     <button id="negative">Negativo</button>
@@ -21,7 +22,9 @@
     <button id="binarization">Binarizacion</button>
     <button id="sepia">Sepia</button>
 
+    <script src="js/filtros.js"></script>
     <script src="js/lapiz.js"></script>
+    <script src="js/goma.js"></script>
     
 </body>
 </html>
