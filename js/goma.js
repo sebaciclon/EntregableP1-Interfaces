@@ -15,6 +15,9 @@ let grosor_borrado = 20;
 let btn_borrar = document.getElementById('borrar');
 btn_borrar.addEventListener('click', agarrarGoma);
 
+let btn_limpiar = document.getElementById('limpiar');
+btn_limpiar.addEventListener('click', limpiar);
+
 function agarrarGoma(){ //Selecciona la herramienta goma para trabajar
     agarrar_goma = true;
     agarrar_lapiz = false;
@@ -59,5 +62,9 @@ function borrar(x1, y1,x2, y2){
         ctx.stroke(); //dibujamos lineas y no areas cerradas
         ctx.closePath();
     }
+}
+
+function limpiar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
