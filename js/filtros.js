@@ -24,6 +24,9 @@ btn3.addEventListener('click', binarizationFilter);
 let btn4 = document.getElementById("sepia");
 btn4.addEventListener('click', sepiaFilter);
 
+let btn5 = document.getElementById("saturation");
+btn5.addEventListener('click', saturationFilter);
+
 function originalImage() {
     let image = new Image();
     image.src = "images/flores.jpg";
@@ -97,6 +100,47 @@ function sepiaFilter() {
     }                                                           
 }
 
+function saturationFilter() {
+    let arreglo = new Array();
+    let arreglo1 = new Array();
+    let h;
+    let s;
+    let v;
+    let r1;
+    let g1;
+    let b1;
+
+    let image1 = new Image();
+    image1.src = "images/flores.jpg";
+    image1.onload = function() {
+        //myDrawImageMethod(this);
+        ctx.drawImage(image1, 0, 0);
+         
+        let image_data = ctx.getImageData(0, 0, image1.width, image1.height);      
+        for(let x = 0; x < image1.width; x ++) {                       
+            for(let y = 0; y < image1.height; y ++) {
+                r = getRed(image_data, x, y);
+                g = getGrenn(image_data, x, y);
+                b = getBlue(image_data, x, y);
+                
+                arreglo = rgbAhsv(r, g, b);
+                h = arreglo[0] ;
+                s = arreglo[1] - 30;
+                v = arreglo[2];
+                
+                arreglo1 = hsvArgb(h, s, v);
+                r1 = arreglo1[0];
+                g1 = arreglo1[1];
+                b1 = arreglo1[2];
+                sexPixel(image_data, x, y, r1, g1, b1, a);
+            }
+        }
+        ctx.putImageData(image_data, 0, 0);                      
+    }                                                           
+}
+
+//*************************************************************************************************************** */
+
 function sexPixel(imageData, x, y, r, g, b, a) {
     let index = (x + y * imageData.width) * 4;
     imageData.data[index + 0] = r;
@@ -118,4 +162,81 @@ function getGrenn(imagedata, x, y) {
 function getBlue(imagedata, x, y) {
     let indice = (x + y * imagedata.width) * 4;
     return imagedata.data[indice + 2];
+}
+
+function rgbAhsv(r, g, b) {
+    let red = r / 255.0;
+    let green = g / 255.0;
+    let blue = b / 255.0;
+    let h;
+    let s;
+    let v;
+
+    let minimo = Math.min(red, green, blue);
+    let maximo = Math.max(red, green, blue);
+    let diferencia = maximo - minimo;
+
+    if(minimo == maximo) {
+        h = 0;
+    } else {
+        if(maximo == red) {
+            h = (60 * ((green - blue) / diferencia) + 360) % 360;
+        } else {
+            if(maximo == green) {
+                h = (60 * ((blue - red) / diferencia) + 120) % 360;
+            } else {
+                if(maximo == blue) {
+                    h = (60 * ((red - green) / diferencia) + 240) % 360;
+                }
+            }
+        }
+    }
+    if(maximo == 0) {
+        s = 0;
+    } else {
+        s = (diferencia / maximo) * 100;
+    }
+    v = maximo * 100;
+    return [h, s, v];
+}
+
+function hsvArgb(h,s,v) {
+    s = s / 100;
+    v = v / 100;
+      
+    let c = s * v;
+    let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    let m = v -c;
+    let r = 0;
+    let g = 0;
+    let b = 0;
+
+    if(0 <= h && h < 60) {
+        r = c; g = x; b = 0; 
+    } else {
+        if(60 <= h && h < 120) {
+            r = x; g = c; b = 0;
+        } else {
+            if (120 <= h && h < 180) {
+                r = 0; g = c; b = x;
+            } else {
+                if (180 <= h && h < 240) {
+                    r = 0; g = x; b = c;
+                } else {
+                    if (240 <= h && h < 300) {
+                        r = x; g = 0; b = c;
+                    } else {
+                        if (300 <= h && h < 360) {
+                            r = c; g = 0; b = x;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+        
+    return [r, g, b]; 
 }
