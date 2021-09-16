@@ -27,6 +27,9 @@ btn4.addEventListener('click', sepiaFilter);
 let btn5 = document.getElementById("saturation");
 btn5.addEventListener('click', saturationFilter);
 
+let btn6 = document.getElementById("blur");
+btn6.addEventListener('click', blurFilter);
+
 function originalImage() {
     let image = new Image();
     image.src = "images/flores.jpg";
@@ -139,6 +142,28 @@ function saturationFilter() {
     }                                                           
 }
 
+function blurFilter() {
+            
+    let image1 = new Image();
+    image1.src = "images/flores.jpg";
+    image1.onload = function() {
+        //myDrawImageMethod(this);
+        ctx.drawImage(image1, 0, 0);
+            
+        let image_data = ctx.getImageData(0, 0, image1.width, image1.height);      
+        let image_data_blur = ctx.getImageData(0, 0, image1.width, image1.height);
+        for(let x = 0; x < image1.width; x ++) {                       
+            for(let y = 0; y < image1.height; y ++) {
+                r = promedioRed(image_data, x, y);
+                g = promedioGreen(image_data, x, y);
+                b = promedioBlue(image_data, x, y);
+                sexPixel(image_data_blur, x, y, r, g, b, a);
+            }
+        }
+        ctx.putImageData(image_data_blur, 0, 0);                      
+    }                                                           
+}
+
 //*************************************************************************************************************** */
 
 function sexPixel(imageData, x, y, r, g, b, a) {
@@ -164,6 +189,7 @@ function getBlue(imagedata, x, y) {
     return imagedata.data[indice + 2];
 }
 
+//METODO QUE CONVIERTE LOS VALORES DE LOS COLORES DEL SISTEMA RGB A HSV
 function rgbAhsv(r, g, b) {
     let red = r / 255.0;
     let green = g / 255.0;
@@ -200,6 +226,7 @@ function rgbAhsv(r, g, b) {
     return [h, s, v];
 }
 
+//METODO QUE CONVIERTE LOS VALORES DE LOS COLORES DEL SISTEMA HSV A RGB
 function hsvArgb(h,s,v) {
     s = s / 100;
     v = v / 100;
@@ -237,6 +264,130 @@ function hsvArgb(h,s,v) {
     r = Math.round((r + m) * 255);
     g = Math.round((g + m) * 255);
     b = Math.round((b + m) * 255);
-        
     return [r, g, b]; 
+}
+
+//METODO QUE DEVUELVE EL PROMEDIO 
+function promedioRed(image_data, x, y) {
+    let suma = 0;;
+    let cont = 0;;
+
+    suma = getRed(image_data, x, y);
+    cont ++;
+    if(x + 1 < width) {
+        suma += getRed(image_data, x + 1, y);
+        cont ++;
+        if(y - 1 >= 0) {
+            suma += getRed(image_data, x + 1, y - 1);
+            cont ++;
+        }
+        if(y + 1 < height) {
+            suma += getRed(image_data, x + 1, y + 1);
+            cont ++;
+        }
+    }
+    if(x - 1 >= 0) {
+        suma += getRed(image_data, x - 1, y);
+        cont ++;
+        if(y - 1 >= 0) {
+            suma += getRed(image_data, x - 1, y - 1);
+            cont ++;
+        }
+        if(y + 1 < height) {
+            suma += getRed(image_data, x - 1, y + 1);
+            cont ++;
+        }
+    }
+    if(y - 1 >= 0) {
+        suma += getRed(image_data, x, y - 1);
+        cont ++;
+    }
+    if(y + 1 < height) {
+        suma += getRed(image_data, x, y + 1);
+        cont ++;
+    }
+    return suma / cont;
+}
+
+function promedioGreen(image_data, x, y) {
+    let suma = 0;;
+    let cont = 0;
+
+    suma = getGrenn(image_data, x, y);
+    cont ++;
+    if(x + 1 < width) {
+        suma += getGrenn(image_data, x + 1, y);
+        cont ++;
+        if(y - 1 >= 0) {
+            suma += getGrenn(image_data, x + 1, y - 1);
+            cont ++;
+        }
+        if(y + 1 < height) {
+            suma += getGrenn(image_data, x + 1, y + 1);
+            cont ++;
+        }
+    }
+    if(x - 1 >= 0) {
+        suma += getGrenn(image_data, x - 1, y);
+        cont ++;
+        if(y - 1 >= 0) {
+            suma += getGrenn(image_data, x - 1, y - 1);
+            cont ++;
+        }
+        if(y + 1 < height) {
+            suma += getGrenn(image_data, x - 1, y + 1);
+            cont ++;
+        }
+    }
+    if(y - 1 >= 0) {
+        suma += getGrenn(image_data, x, y - 1);
+        cont ++;
+    }
+    if(y + 1 < height) {
+        suma += getGrenn(image_data, x, y + 1);
+        cont ++;
+    }
+    return suma / cont;
+
+}
+
+function promedioBlue(image_data, x, y) {
+    let suma = 0;
+    let cont = 0;
+
+    suma = getBlue(image_data, x, y);
+    cont ++;
+    if(x + 1 < width) {
+        suma += getBlue(image_data, x + 1, y);
+        cont ++;
+        if(y - 1 >= 0) {
+            suma += getBlue(image_data, x + 1, y - 1);
+            cont ++;
+        }
+        if(y + 1 < height) {
+            suma += getBlue(image_data, x + 1, y + 1);
+            cont ++;
+        }
+    }
+    if(x - 1 >= 0) {
+        suma += getBlue(image_data, x - 1, y);
+        cont ++;
+        if(y - 1 >= 0) {
+            suma += getBlue(image_data, x - 1, y - 1);
+            cont ++;
+        }
+        if(y + 1 < height) {
+            suma += getBlue(image_data, x - 1, y + 1);
+            cont ++;
+        }
+    }
+    if(y - 1 >= 0) {
+        suma += getBlue(image_data, x, y - 1);
+        cont ++;
+    }
+    if(y + 1 < height) {
+        suma += getBlue(image_data, x, y + 1);
+        cont ++;
+    }
+    return suma / cont;
 }
