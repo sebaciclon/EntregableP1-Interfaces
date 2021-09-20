@@ -6,7 +6,8 @@
 //let ctx = canvas.getContext("2d");
 
 let rectCanvasBorrado = canvas.getBoundingClientRect(); //posición del canvas respecto de la pantalla (borde derecho y superior)
-x = 0, y = 0;
+x = 0;
+y = 0;
 let borrando = false;
 let agarrar_goma = false;
 let color_borrado = 'white';
