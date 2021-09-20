@@ -15,7 +15,7 @@ let agarrar_lapiz = false;
 let btn_dibujar = document.getElementById('dibujar');
 btn_dibujar.addEventListener('click', agarrarLapiz);
 
-function agarrarLapiz(){ //Selecciona la herramienta goma para trabajar
+function agarrarLapiz(){ //Selecciona la herramienta lapiz para trabajar
     agarrar_lapiz = true;
     agarrar_goma = false;
 }
@@ -67,5 +67,7 @@ function dibujar(x1, y1,x2, y2){
         ctx.closePath();
     }
 }
+
+
 
 

@@ -9,14 +9,18 @@ let g;
 let b;
 let a = 255;
 
-let btn = document.getElementById('original');
-btn.addEventListener('click', originalImage);
+let porcBrillo = 10; 
+
+//let imagenCanvas;
+
+//let btn = document.getElementById('original');
+//btn.addEventListener('click', originalImage);
 
 let btn1 = document.getElementById("negative");
 btn1.addEventListener('click', negativeFilter);
 
-//let btn2 = document.getElementById("brightness");
-//btn2.addEventListener('click', brightnessFilter);
+let btn2 = document.getElementById("brightness");
+btn2.addEventListener('click', brightnessFilter);
 
 let btn3 = document.getElementById("binarization");
 btn3.addEventListener('click', binarizationFilter);
@@ -29,15 +33,6 @@ btn5.addEventListener('click', saturationFilter);
 
 let btn6 = document.getElementById("blur");
 btn6.addEventListener('click', blurFilter);
-
-function originalImage() {
-    let image = new Image();
-    image.src = "images/flores.jpg";
-    image.onload = function() {
-        //myDrawImageMethod(this);
-        ctx.drawImage(image, 0, 0);
-    }
-}
 
 function negativeFilter() {
     let image1 = new Image();
@@ -57,6 +52,41 @@ function negativeFilter() {
         }
         ctx.putImageData(image_data, 0, 0);                      
     }                                                           
+}
+
+function brightnessFilter() {
+    let image1 = new Image();
+    image1.src = "images/flores.jpg";
+    image1.onload = function() {
+        //myDrawImageMethod(this);
+        ctx.drawImage(image1, 0, 0);
+        let image_data = ctx.getImageData(0, 0, image1.width, image1.height);      
+        for(let x = 0; x < image1.width; x ++) {                       
+            for(let y = 0; y < image1.height; y ++) {
+                r = getRed(image_data, x, y) * porcBrillo / 10;
+                g = getGrenn(image_data, x, y) * porcBrillo / 10;
+                b = getBlue(image_data, x, y) * porcBrillo / 10;
+                if(r > 255) 
+                    r = 255;
+                else if(r < 0)
+                    r = 0;
+                if(g > 255) 
+                    g = 255;
+                else if(g < 0)
+                    g = 0;
+                if(b > 255) 
+                    b = 255;
+                else if(b < 0)
+                    b = 0;
+                sexPixel(image_data, x, y, r, g, b, a);
+            }
+        }
+        ctx.putImageData(image_data, 0, 0);                      
+    }                                                           
+}
+
+function definirBrillo(b){
+    porcBrillo = b;
 }
 
 function binarizationFilter() {
