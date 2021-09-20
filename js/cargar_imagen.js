@@ -1,11 +1,15 @@
 "use strict";
 
 /**@type {HTMLCanvasElement} */
+//let ctx = document.getElementById('canvas').getContext('2d');
+//let width = canvas.width;
+//let height = canvas.height;
 
 let btn_cargar = document.getElementById("cargar");
 btn_cargar.addEventListener('change', cargarImagen);
 
 function cargarImagen(){
+    limpiar();
     //Verificamos el tipo de archivo
     let nombre_archivo = document.getElementById("cargar").value;
     let index = nombre_archivo.lastIndexOf(".") + 1;
@@ -19,7 +23,7 @@ function cargarImagen(){
             let imagenCanvas = new Image();
             imagenCanvas.src = reader.result;
             imagenCanvas.onload = function() {
-                ctx.drawImage(imagenCanvas, 0, 0);
+                ctx.drawImage(imagenCanvas, 0, 0, width, height);
             }
         }
 }
