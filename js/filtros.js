@@ -60,7 +60,7 @@ function negativeFilter() {
 }
 
 function brightnessFilter() {
-    let image_data = ctx.getImageData(0, 0, width, height);
+    image_data = ctx.getImageData(0, 0, width, height);
     if(original == null)  
         original = ctx.getImageData(0, 0, width, height);       
     for(let x = 0; x < width; x ++) {                       
@@ -93,7 +93,7 @@ function definirBrillo(b){
 function binarizationFilter() {
     let negro = 0;
     let blanco = 255;
-    let image_data = ctx.getImageData(0, 0, width, height);
+    image_data = ctx.getImageData(0, 0, width, height);
     if(original == null)  
         original = ctx.getImageData(0, 0, width, height);       
     for(let x = 0; x < width; x ++) {                       
@@ -110,7 +110,7 @@ function binarizationFilter() {
 }
 
 function sepiaFilter() {
-    let image_data = ctx.getImageData(0, 0, width, height);
+    image_data = ctx.getImageData(0, 0, width, height);
     if(original == null)  
         original = ctx.getImageData(0, 0, width, height);       
     for(let x = 0; x < width; x ++) {                       
@@ -134,7 +134,7 @@ function saturationFilter() {
     let g1;
     let b1;
 
-    let image_data = ctx.getImageData(0, 0, width, height);
+    image_data = ctx.getImageData(0, 0, width, height);
     if(original == null)  
         original = ctx.getImageData(0, 0, width, height);       
     for(let x = 0; x < width; x ++) {                       
@@ -159,7 +159,7 @@ function saturationFilter() {
 }
 
 function blurFilter() {
-    let image_data = ctx.getImageData(0, 0, width, height);      
+    image_data = ctx.getImageData(0, 0, width, height);      
     let image_data_blur = ctx.getImageData(0, 0, width, height);
     if(original == null)  
         original = ctx.getImageData(0, 0, width, height); 
