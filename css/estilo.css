@@ -32,30 +32,32 @@ body{
 }
 
 .logo{
-    border-image-slice: initial;
     border-radius: 10px;
-    margin-top: 30px;
+    margin-top: 25px;
     width: 170px;
     height: 170px;
     
 }
 
 .contenedor{
+    width: 80%;
     border-radius: 20px;
     padding-top: 12px;
     display: table-cell;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
     text-align: center; /* requerido para alineación horizontal */
-    display: flexbox;
-    background-color: rgba(224, 156, 30, 0.5);
+    /*display: flexbox;*/
+    background-color: rgba(219, 176, 96, 0.5);
+}
+
+.subcontenedor{
+    width: 95%;
+    margin:0px auto;
 }
 
 .cargarDescargar{
-    
-   margin-left: 300px;
     width: 550px;
-    /*background-color: burlywood;*/
-    float: left;
+    margin:0px auto;
 }
 
 .herramientas{
@@ -64,12 +66,13 @@ body{
     margin-right: 35px;
     text-align: center;
     width: 170px;
-    /*background-color: chartreuse;*/
+    background-color: rgb(235, 207, 51, 0.3);
     border-color: crimson;
     float: left;
 }
 
 .filtros{
+    background-color: rgb(235, 207, 51, 0.3);
     margin-top: 25px;
     margin-left: 35px;
     text-align: center;
