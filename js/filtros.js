@@ -216,17 +216,22 @@ function rgbAhsv(r, g, b) {
         h = 0;
     } else {
         if(maximo == red) {
-            h = (60 * ((green - blue) / diferencia) + 360) % 360;
+            //h = (60 * ((green - blue) / diferencia) + 360) % 360;
+            //h = (((green - blue) / diferencia) + 6);
+            h = (green - blue) / diferencia + (green < blue ? 6 : 0);
         } else {
             if(maximo == green) {
-                h = (60 * ((blue - red) / diferencia) + 120) % 360;
+                //h = (60 * ((blue - red) / diferencia) + 120) % 360;
+                h = (((blue - red) / diferencia) + 2);
             } else {
                 if(maximo == blue) {
-                    h = (60 * ((red - green) / diferencia) + 240) % 360;
+                    //h = (60 * ((red - green) / diferencia) + 240) % 360;
+                    h = (((red - green) / diferencia) + 4);
                 }
             }
         }
     }
+    h = h / 6 * 360;
     if(maximo == 0) {
         s = 0;
     } else {
