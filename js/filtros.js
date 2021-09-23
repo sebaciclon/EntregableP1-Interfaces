@@ -2,7 +2,6 @@
 
 /**@type {HTMLCanvasElement} */
 let ctx = document.getElementById('canvas').getContext('2d');       //AREA DONDE SE VA A DIBUJAR
-//let ctx = canvas.getContext('2d');
 let width = canvas.width;
 let height = canvas.height;
 let original;
@@ -14,8 +13,6 @@ let b;
 let a = 255;
 
 let porcBrillo = 10; 
-
-//let imagenCanvas;
 
 let btn = document.getElementById('original');
 btn.addEventListener('click', originalImage);
@@ -38,12 +35,49 @@ btn5.addEventListener('click', saturationFilter);
 let btn6 = document.getElementById("blur");
 btn6.addEventListener('click', blurFilter);
 
+let btn7 = document.getElementById("grey");
+btn7.addEventListener('click', greyScale);
+
+//Funcion que muestra la imagen original si en la variable original ya existe cargada una imagen
 function originalImage() {
     //ctx.getImageData(0, 0, width, height);
     if(original != null) 
         ctx.putImageData(original, 0, 0);
 }
 
+//Funcion que aplica filtro escala de grises a una imagen.
+//La escala de grises de un color se obtiene sumando los 3 colores del pixel y luego dividiendo en 3.
+//Para que sea gris los 3 colores deben ser iguales, por eso al metodo setPixel se le pasa los 3 colores iguales (grey).
+//Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
+//Luego se accede a cada color como si fuera una matriz (for - for).
+//Con el metodo setPixel se setea en el arreglo los nuevos valores.
+//Y para finalizar con el metodo putImageData se dibuja la informacion de pixeles en el canvas.
+function greyScale() {
+    let grey;
+
+    image_data = ctx.getImageData(0, 0, width, height);
+    if(original == null)  
+        original = ctx.getImageData(0, 0, width, height);       
+    for(let x = 0; x < width; x ++) {                       
+        for(let y = 0; y < height; y ++) {
+            r = getRed(image_data, x, y);
+            g = getGreen(image_data, x, y);
+            b = getBlue(image_data, x, y);
+            grey = (r + g + b) / 3;
+            setPixel(image_data, x, y, grey, grey, grey, a);
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);                      
+}                                                           
+
+
+
+//Funcion que aplica filtro negativo a una imagen.
+//El negativo de un color se obtiene restando 255 menos el color de cada pixel de la imagen.
+//Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
+//Luego se accede a cada color como si fuera una matriz (for - for).
+//Con el metodo setPixel se setea en el arreglo los nuevos valores.
+//Y para finalizar con el metodo putImageData se dibuja la informacion de pixeles en el canvas.
 function negativeFilter() {
     image_data = ctx.getImageData(0, 0, width, height);
     if(original == null)  
@@ -59,6 +93,12 @@ function negativeFilter() {
     ctx.putImageData(image_data, 0, 0);                      
 }
 
+//Funcion que aplica brillo a una imagen.
+//El brillo de un color se obtiene multiplicando el color de cada pixel por el brillo que quiera el usuario dividido 10.
+//Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
+//Luego se accede a cada color como si fuera una matriz (for - for).
+//Con el metodo setPixel se setea en el arreglo los nuevos valores.
+//Y para finalizar con el metodo putImageData se dibuja la informacion de pixeles en el canvas.
 function brightnessFilter() {
     image_data = ctx.getImageData(0, 0, width, height);
     if(original == null)  
@@ -86,10 +126,18 @@ function brightnessFilter() {
     ctx.putImageData(image_data, 0, 0);                      
 }
 
+//Metodo para obtener el brillo que el usuario le agrego a la imagen.
 function definirBrillo(b){
     porcBrillo = b;
 }
 
+//Funcion que aplica el filtro binarizado a una imagen.
+//El binarizado de un color se obtiene obteniendo el promedio de los 3 colores de cada pixel.
+//Posteriormente, usando el valor frontera 127, si el promedio es mayor a este se aplica blanco, caso contrario de aplica negro
+//Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
+//Luego se accede a cada color como si fuera una matriz (for - for).
+//Con el metodo setPixel se setea en el arreglo los nuevos valores.
+//Y para finalizar con el metodo putImageData se dibuja la informacion de pixeles en el canvas.
 function binarizationFilter() {
     let negro = 0;
     let blanco = 255;
@@ -109,6 +157,12 @@ function binarizationFilter() {
     ctx.putImageData(image_data, 0, 0);                      
 }
 
+//Funcion que aplica el filtro sepia a una imagen.
+//El sepia de un color se obtiene mediante la formula de convercion a sepia
+//Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
+//Luego se accede a cada color como si fuera una matriz (for - for).
+//Con el metodo setPixel se setea en el arreglo los nuevos valores.
+//Y para finalizar con el metodo putImageData se dibuja la informacion de pixeles en el canvas.
 function sepiaFilter() {
     image_data = ctx.getImageData(0, 0, width, height);
     if(original == null)  
@@ -124,6 +178,13 @@ function sepiaFilter() {
     ctx.putImageData(image_data, 0, 0);                     
 }
 
+//Funcion que aplica el filtro saturacion a una imagen.
+//El filtro de saturacion se obtiene convirtiendo los valores rgb a hsv con la saturacion deseada
+//y luego se vuelve a convertir de hsv a rgb.
+//Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
+//Luego se accede a cada color como si fuera una matriz (for - for).
+//Con el metodo setPixel se setea en el arreglo los nuevos valores.
+//Y para finalizar con el metodo putImageData se dibuja la informacion de pixeles en el canvas.
 function saturationFilter() {
     let arreglo = new Array();
     let arreglo1 = new Array();
@@ -145,7 +206,7 @@ function saturationFilter() {
                 
             arreglo = rgbAhsv(r, g, b);
             h = arreglo[0] ;
-            s = arreglo[1] - 30;
+            s = arreglo[1] + 30;
             v = arreglo[2];
                 
             arreglo1 = hsvArgb(h, s, v);
@@ -158,6 +219,12 @@ function saturationFilter() {
     ctx.putImageData(image_data, 0, 0);                      
 }
 
+//Funcion que aplica el filtro blur a una imagen.
+//El blur de un color se obtiene mediante la suma de cada color de cada pixel dividio la cantidad de pixeles adyacentes.
+//Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
+//Luego se accede a cada color como si fuera una matriz (for - for).
+//Con el metodo setPixel se setea en el arreglo los nuevos valores.
+//Y para finalizar con el metodo putImageData se dibuja la informacion de pixeles en el canvas.
 function blurFilter() {
     image_data = ctx.getImageData(0, 0, width, height);      
     let image_data_blur = ctx.getImageData(0, 0, width, height);
@@ -176,6 +243,7 @@ function blurFilter() {
 
 //*************************************************************************************************************** */
 
+//Funcion que convierte la imagen en un arreglo, guardando los colores de cada pixel en una posicion del arreglo.
 function setPixel(imageData, x, y, r, g, b, a) {
     let index = (x + y * imageData.width) * 4;
     imageData.data[index + 0] = r;
@@ -184,22 +252,25 @@ function setPixel(imageData, x, y, r, g, b, a) {
     imageData.data[index + 3] = a;
 }
 
+//Funcion para obtener el valor del color rojo de una imagen segun la posicion en la que se encuentre en el arreglo.
 function getRed(imagedata, x, y) {
     let indice = (x + y * imagedata.width) * 4;
     return imagedata.data[indice + 0];
 }
 
+//Funcion para obtener el valor del color verde de una imagen segun la posicion en la que se encuentre en el arreglo.
 function getGreen(imagedata, x, y) {
     let indice = (x + y * imagedata.width) * 4;
     return imagedata.data[indice + 1];
 }
 
+//Funcion para obtener el valor del color azul de una imagen segun la posicion en la que se encuentre en el arreglo.
 function getBlue(imagedata, x, y) {
     let indice = (x + y * imagedata.width) * 4;
     return imagedata.data[indice + 2];
 }
 
-//METODO QUE CONVIERTE LOS VALORES DE LOS COLORES DEL SISTEMA RGB A HSV
+//Metodo que convierte los valores rgb pasados por parametro al sistema hsv.
 function rgbAhsv(r, g, b) {
     let red = r / 255.0;
     let green = g / 255.0;
@@ -216,27 +287,31 @@ function rgbAhsv(r, g, b) {
         h = 0;
     } else {
         if(maximo == red) {
-            h = (60 * ((green - blue) / diferencia) + 360) % 360;
+            h = (green - blue) / diferencia + (green < blue ? 6 : 0);
         } else {
             if(maximo == green) {
-                h = (60 * ((blue - red) / diferencia) + 120) % 360;
+                h = (((blue - red) / diferencia) + 2);
             } else {
                 if(maximo == blue) {
-                    h = (60 * ((red - green) / diferencia) + 240) % 360;
+                    h = (((red - green) / diferencia) + 4);
                 }
             }
         }
     }
+    h = h / 6 * 360;
     if(maximo == 0) {
         s = 0;
     } else {
         s = (diferencia / maximo) * 100;
     }
     v = maximo * 100;
+    h = Math.round(h);
+    s = Math.round(s);
+    v = Math.round(v);
     return [h, s, v];
 }
 
-//METODO QUE CONVIERTE LOS VALORES DE LOS COLORES DEL SISTEMA HSV A RGB
+//Metodo que convierte los valores hsv pasados por parametro al sistema rgb.
 function hsvArgb(h,s,v) {
     s = s / 100;
     v = v / 100;
@@ -277,7 +352,8 @@ function hsvArgb(h,s,v) {
     return [r, g, b]; 
 }
 
-//METODO QUE DEVUELVE EL PROMEDIO 
+//Metodo que devuelve el promedio del color rojo.
+//Esto lo realiza sumando todos los adyacentes al pixel pasado por parametro dividido la cantidad de adyacentes que tiene.
 function promedioRed(image_data, x, y) {
     let suma = 0;;
     let cont = 0;;
@@ -319,6 +395,8 @@ function promedioRed(image_data, x, y) {
     return suma / cont;
 }
 
+//Metodo que devuelve el promedio del color verde.
+//Esto lo realiza sumando todos los adyacentes al pixel pasado por parametro dividido la cantidad de adyacentes que tiene.
 function promedioGreen(image_data, x, y) {
     let suma = 0;;
     let cont = 0;
@@ -361,6 +439,8 @@ function promedioGreen(image_data, x, y) {
 
 }
 
+//Metodo que devuelve el promedio del color azul.
+//Esto lo realiza sumando todos los adyacentes al pixel pasado por parametro dividido la cantidad de adyacentes que tiene.
 function promedioBlue(image_data, x, y) {
     let suma = 0;
     let cont = 0;
