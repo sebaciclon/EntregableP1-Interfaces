@@ -2,8 +2,9 @@
 
 /**@type {HTMLCanvasElement} */
 //let ctx = document.getElementById('canvas').getContext('2d');
-//let width = canvas.width;
-//let height = canvas.height;
+let imageWidth;
+let imageHeight;
+let proporcion;
 
 let btn_cargar = document.getElementById("cargar");
 btn_cargar.addEventListener('change', cargarImagen);
@@ -23,12 +24,35 @@ function cargarImagen(){
             let imagenCanvas = new Image();
             imagenCanvas.src = reader.result;
             imagenCanvas.onload = function() {
-                ctx.drawImage(imagenCanvas, 0, 0, width, height);
+                imageWidth = imagenCanvas.width;
+                imageHeight = imagenCanvas.height;
+
+                if(imageWidth <= width && imageHeight <= height)
+                    ctx.drawImage(imagenCanvas, 0, 0);
+                else {
+                    if(imageHeight > imageWidth) {
+                        proporcion = (height * 100) / imageHeight;
+                        imageWidth = imageWidth * (proporcion / 100);
+                        imageHeight = imageHeight * (proporcion / 100);
+                    } else {
+                        if(imageWidth > imageHeight) {
+                            proporcion = (width * 100) / imageWidth;
+                            imageWidth = imageWidth * (proporcion / 100);
+                            imageHeight = imageHeight * (proporcion / 100);
+                        } else {
+                            imageWidth = imageWidth * (((width * 100) / imageWidth) / 100);
+                            imageHeight = imageHeight * (((height * 100) / imageHeight) / 100);
+                        }
+                    }
+                }
+                ctx.drawImage(imagenCanvas, 0, 0, imageWidth, imageHeight);
             }
         }
+    } else { //Si no es imagen se avisa del error al seleccionar el archivo
+        alert("Solamente archivos jpg, jpeg y png");
+    }   
 }
-    else //Si no es imagen se avisa del error al seleccionar el archivo
-        {
-            alert("Solamente archivos jpg, jpeg y png");
-        }   
-}
+
+
+  
+
