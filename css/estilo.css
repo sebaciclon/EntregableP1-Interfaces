@@ -8,7 +8,7 @@ html{
 
 
 body{
-    background-image: url(../images/fondo.jpg);
+    background-image: url(../images/fondo3.jpg);
     background-position: center center;
     background-size: 100vw 100vh; /*para que la imagen siempre tenga el 100% de la ventana*/
     background-attachment: fixed; /*para que la imagen quede fija en el scroll*/
@@ -24,19 +24,21 @@ body{
     background-color: white;
 }
 
+h5{
+    color: cornsilk;
+    background-color: crimson;
+}
+
 .divCanvas{
     width: 600px;
-    
-    /*background-color: blanchedalmond;*/
     float: left;
 }
 
 .logo{
     border-radius: 10px;
     margin-top: 25px;
-    width: 170px;
-    height: 170px;
-    
+    width: 180px;
+    height: 180px;
 }
 
 .contenedor{
@@ -44,10 +46,8 @@ body{
     border-radius: 20px;
     padding-top: 12px;
     display: table-cell;
-    /*vertical-align: middle;*/
     text-align: center; /* requerido para alineación horizontal */
-    /*display: flexbox;*/
-    background-color: rgba(219, 176, 96, 0.5);
+    background-color: rgba(219, 176, 96, 0.3);
 }
 
 .subcontenedor{
@@ -65,7 +65,7 @@ body{
     margin-left: 70px;
     margin-right: 35px;
     text-align: center;
-    width: 170px;
+    width: 180px;
     background-color: rgb(235, 207, 51, 0.3);
     border-color: crimson;
     float: left;
@@ -76,8 +76,7 @@ body{
     margin-top: 25px;
     margin-left: 35px;
     text-align: center;
-    width: 170px;
-    /*background-color: cornflowerblue;*/
+    width: 180px;
     float: left;
 }
 

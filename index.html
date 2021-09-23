@@ -11,61 +11,42 @@
     
 </head>
 <body>
-    
-    
-    
-
     <div class="contenedor">
         <div class="subcontenedor">
             <div class="herramientas">
                 <h5><b>HERRAMIENTAS</b></h5>
-                <button id="dibujar" class="btn btn-warning margen">Lapiz</button> 
+                <button id="dibujar" class="btn btn-warning margen"><b>Lapiz</b></button> 
                 <input type="color" id="color" oninput="definirColor(this.value);" class="btn btn-warning margen">
                 <input type="range" id="grosor" oninput="definirGrosor(this.value);" min="1" max="15" value="1" class="btn btn-warning margen">
-                <button id="borrar" class="btn btn-warning margen">Goma</button>
-                <button id="limpiar" class="btn btn-warning margen">Limpiar</button>
+                <button id="borrar" class="btn btn-warning margen"><b>Goma</b></button>
+                <button id="limpiar" class="btn btn-warning margen"><b>Limpiar</b></button>
                 <img src="images/logo.png" class="logo">
                 <b>by Esains & Esains</b>
             </div>
-
             <div class="divCanvas">
                 <canvas id="canvas" width="600" height="500"></canvas><br>
             </div>
-
             <div class="filtros">
                 <h5><b>FILTROS</b></h5>
-                <button id="original" class="btn btn-warning margen">Imagen Original</button>
-                <button id="negative" class="btn btn-warning margen">Negativo</button>
-                <button id="brightness" class="btn btn-warning margen">Brillo</button>
+                <button id="original" class="btn btn-warning margen"><b>Imagen Original</b></button>
+                <button id="negative" class="btn btn-warning margen"><b>Negativo</b></button>
+                <button id="brightness" class="btn btn-warning margen"><b>Brillo</b></button>
                 <input type="range" id="brillo" oninput="definirBrillo(this.value);" min="0" max="20" value="10" class="btn btn-warning margen">
-                <button id="binarization" class="btn btn-warning margen">Binarizacion</button>
-                <button id="sepia" class="btn btn-warning margen">Sepia</button>
-                <button id="saturation" class="btn btn-warning margen">Saturacion</button>
-                <button id="blur" class="btn btn-warning margen">Blur</button>
+                <button id="binarization" class="btn btn-warning margen"><b>Binarizacion</b></button>
+                <button id="sepia" class="btn btn-warning margen"><b>Sepia</b></button>
+                <button id="saturation" class="btn btn-warning margen"><b>Saturacion</b></button>
+                <button id="blur" class="btn btn-warning margen"><b>Blur</b></button>
             </div>
         </div>
-
-
         <div class="cargarDescargar">
             <input type="file" id="cargar" accept=".jpg,.jpeg,.png" class="btn btn-warning margen">
-            <button id="descargar" class="btn btn-warning margen">Descargar Imagen</button>
+            <button id="descargar" class="btn btn-warning margen"><b>Descargar Imagen</b></button>
         </div>
-
-        
-
-        
-        
     </div>
-
-   
-
-    
     <script src="js/filtros.js"></script>
     <script src="js/lapiz.js"></script>
     <script src="js/goma.js"></script>
     <script src="js/cargar_imagen.js"></script>
     <script src="js/descargar_imagen.js"></script>
-    
 </body>
-
 </html>
