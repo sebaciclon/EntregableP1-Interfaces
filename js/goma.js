@@ -48,13 +48,15 @@ canvas.addEventListener('mouseup', function(e){ //e es dónde se dejó de hacer 
     }
 });
 
+//Setea que se seleccionó la goma. 
+//Se establece color blanco para el trazo.
 function borrar(x1, y1, x2, y2){
     if(agarrar_goma == true){
         dibujando = false;
         ctx.beginPath(); //comenzamos una ruta nueva
         ctx.strokeStyle = color_borrado; //definimos con el color que vamos a dibujar
         ctx.lineWidth = grosor_borrado; //definimos el grosor de la linea de dibujo
-        ctx.lineCap = "round";
+        ctx.lineCap = "round"; // dibuja trazo redondo
         ctx.moveTo(x1, y1); //mover o posicionar el lápiz a la posición inicial
         ctx.lineTo(x2, y2); //dibujamos una linea hasta el valor final
         ctx.stroke(); //dibujamos lineas y no areas cerradas

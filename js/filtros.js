@@ -40,7 +40,6 @@ btn7.addEventListener('click', greyScale);
 
 //Funcion que muestra la imagen original si en la variable original ya existe cargada una imagen
 function originalImage() {
-    //ctx.getImageData(0, 0, width, height);
     if(original != null) 
         ctx.putImageData(original, 0, 0);
 }
@@ -70,8 +69,6 @@ function greyScale() {
     ctx.putImageData(image_data, 0, 0);                      
 }                                                           
 
-
-
 //Funcion que aplica filtro negativo a una imagen.
 //El negativo de un color se obtiene restando 255 menos el color de cada pixel de la imagen.
 //Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
@@ -94,7 +91,9 @@ function negativeFilter() {
 }
 
 //Funcion que aplica brillo a una imagen.
-//El brillo de un color se obtiene multiplicando el color de cada pixel por el brillo que quiera el usuario dividido 10.
+//El brillo de un color se obtiene multiplicando el color de cada pixel por el porcentaje de brillo que 
+//quiera el usuario dividido 10. El rango de brillo va entre 0 y 2, para que el elemento rango tenga 
+//más movimiento lo hicimos de 0 a 20, es por eso la división por 10.
 //Primero se almacenan los pixeles de la imagen en un arreglo de enteros (image_data).
 //Luego se accede a cada color como si fuera una matriz (for - for).
 //Con el metodo setPixel se setea en el arreglo los nuevos valores.
@@ -126,7 +125,7 @@ function brightnessFilter() {
     ctx.putImageData(image_data, 0, 0);                      
 }
 
-//Metodo para obtener el brillo que el usuario le agrego a la imagen.
+//Metodo para obtener el porcentaje de brillo seleccionado por el usuario.
 function definirBrillo(b){
     porcBrillo = b;
 }
